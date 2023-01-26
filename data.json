@@ -1,0 +1,26 @@
+[
+    {
+        "id":"1",
+        "question":"Who is not the creator Golang?",
+        "options":{
+            "a":"Robert Clark",
+            "b":"Rob Pike",
+            "c":"Ken Thomson",
+            "d":"Robert Greisemer"
+        },
+        "answer":"a",
+        "explanation":"fact"
+    },
+    {
+        "id":"2",
+        "question":"Which is not included in the hello world program created at the first part of the session?",
+        "options":{
+            "a":"import fmt",
+            "b":"import fnt",
+            "c":"package main",
+            "d":"func main()"
+        },
+        "answer":"b",
+        "explanation":"fnt is not a package"
+    }
+]
