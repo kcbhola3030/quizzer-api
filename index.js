@@ -1,30 +1,5 @@
 const dotenv = require('dotenv').config();
-var importData = [
-    {
-        "id":"1",
-        "question":"Who is not the creator Golang?",
-        "options":{
-            "a":"Robert Clark",
-            "b":"Rob Pike",
-            "c":"Ken Thomson",
-            "d":"Robert Greisemer"
-        },
-        "answer":"a",
-        "explanation":"fact"
-    },
-    {
-        "id":"2",
-        "question":"Which is not included in the hello world program created at the first part of the session?",
-        "options":{
-            "a":"import fmt",
-            "b":"import fnt",
-            "c":"package main",
-            "d":"func main()"
-        },
-        "answer":"b",
-        "explanation":"fnt is not a package"
-    }
-]
+
 let port = process.env.PORT || 6000;
 
 const express = require("express");
@@ -46,6 +21,12 @@ const User = mongoose.model("User", {
   score: Number,
 });
 
+const Question = mongoose.model("Question", {
+  question:{
+    type:Object
+  }
+});
+
 const app = express();
 app.use(express.json());
 app.use(cors())
@@ -54,7 +35,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to Meta");
 });
 
-app.get("/questions", (req, res) => {
+app.get("/questions", async(req, res) => {
+  const importData = await Question.find()
   res.send(importData);
 });
 
