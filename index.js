@@ -5,6 +5,7 @@ let port = process.env.PORT || 6000;
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const { reset } = require('nodemon');
 
 
 mongoose.set("strictQuery", true);
@@ -41,15 +42,33 @@ app.get("/", (req, res) => {
   res.send("Welcome to Meta");
 });
 
-app.get("/questions", async(req, res) => {
-  const importData = await Question.find()
-  res.send(importData);
+app.get("/q", async(req, res) => {
+  try {
+    const importData = await Question.find()
+    res.status(201).send(importData);
+    
+  } catch (error) {
+    res.status(403).send(error)
+
+  }
+});
+
+app.get("/leaderboard", async(req, res) => {
+  
+  try {
+    const participants = await User.find({},{ name:1,_id:0,score:1 }).sort( { score:-1 } )
+    res.status(201).send(participants);
+    
+  } catch (error) {
+    res.status(403).send(error)
+  }
 });
 
 app.get("/api", async(req, res) => {
   const api = await URL.findById("63d6008f0cd0ab2d33e78158")
-  res.send(api);
+  res.send(api); 
 });
+
 
 app.post("/user", async (req, res) => {
   const { name, score } = req.body;
