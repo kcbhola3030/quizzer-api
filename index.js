@@ -27,6 +27,12 @@ const Question = mongoose.model("Question", {
   }
 });
 
+const URL = mongoose.model("Url",{
+  API:{
+    type:String
+  }
+})
+
 const app = express();
 app.use(express.json());
 app.use(cors())
@@ -38,6 +44,11 @@ app.get("/", (req, res) => {
 app.get("/questions", async(req, res) => {
   const importData = await Question.find()
   res.send(importData);
+});
+
+app.get("/api", async(req, res) => {
+  const api = await URL.findById("63d6008f0cd0ab2d33e78158")
+  res.send(api);
 });
 
 app.post("/user", async (req, res) => {
